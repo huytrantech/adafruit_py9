@@ -12,7 +12,7 @@ import cv2
 
 AIO_FEED_IDs = ["light_button"]
 AIO_USERNAME = "HuyTran1996"
-AIO_KEY = "aio_POpP61IPUa6of9zUXEbAVxMtjvWt"
+AIO_KEY = "aio_jnhF51gQqzFSYRR7BqDN0bQwcPGs"
 import base64
 import ssl
 
@@ -94,4 +94,11 @@ def image_to_string256(image):
 
 counter = 0
 while True:
+    image_origin , label, _ = camera_detect_model.detect()
+    label = label.split("\n")[0]
+    if label == 'none_facemask':
+        client.publish(sensor_feeds.CAMERA_DETECT, 1)
+    else:
+        client.publish(sensor_feeds.CAMERA_DETECT, 0)
+    time.sleep(2)
     pass
