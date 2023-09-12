@@ -12,7 +12,7 @@ import cv2
 
 AIO_FEED_IDs = ["light_button"]
 AIO_USERNAME = "HuyTran1996"
-AIO_KEY = "aio_yJOu18RkGtHH86roHd49Zke8mIRl"
+AIO_KEY = "aio_POpP61IPUa6of9zUXEbAVxMtjvWt"
 import base64
 import ssl
 
@@ -94,14 +94,4 @@ def image_to_string256(image):
 
 counter = 0
 while True:
-    if counter == 10:
-        print("starting detect camera")
-        image_origin, label, confidence_score = camera_detect_model.detect()
-        client.publish(sensor_feeds.CAMERA_DETECT, "{} - {}".format(label, confidence_score))
-        image_str = image_to_string256(image_origin)
-        # turn off feed history of feed to display image have size larger than 1024 bytes
-        client.publish(sensor_feeds.IMAGE_CAM , image_str)
-        counter = 0
-
-    counter += 1
-    time.sleep(0.5)
+    pass
