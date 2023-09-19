@@ -8,13 +8,13 @@ import time
 import random
 import constants
 import sensor_feeds
-import camera_detector
-import cv2
+# import camera_detector
+# import cv2
 import eval_testing
 
 AIO_FEED_IDs = ["equation"]
 AIO_USERNAME = "HuyTran1996"
-AIO_KEY = "aio_QSMn25rS8ieQY8Rer7GCBORurre4"
+AIO_KEY = "aio_RIWu45IS3Gsy8RnaGbnJhepme3n7"
 import base64
 import ssl
 
@@ -25,7 +25,7 @@ except AttributeError:
 else:
     ssl._create_default_https_context = _create_unverified_https_context
 
-camera_detect_model = camera_detector.CameraDetector()
+# camera_detect_model = camera_detector.CameraDetector()
 
 
 def init_latest_equation():
@@ -84,28 +84,28 @@ def publish_data_to_feed():
     client.publish(sensor_feeds.LIGHT_SENSOR_FEED_NAME, light)
 
 
-def scale_image_1024(image):
-    image = cv2.resize(image, (100, 100), interpolation=cv2.INTER_AREA)
-    quality = 90  # You can adjust this value (0-100)
-    _, encoded_image = cv2.imencode('.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
+# def scale_image_1024(image):
+#     image = cv2.resize(image, (100, 100), interpolation=cv2.INTER_AREA)
+#     quality = 90  # You can adjust this value (0-100)
+#     _, encoded_image = cv2.imencode('.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
+#
+#     # Check the file size
+#     file_size = len(encoded_image.tobytes())
+#     target_size = 1024  # Target file size in bytes
+#     while file_size > target_size and quality > 0:
+#         quality -= 10
+#         _, encoded_image = cv2.imencode('.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
+#         file_size = len(encoded_image.tobytes())
+#     file_size = len(encoded_image.tobytes())
+#     print(file_size)
+#     return encoded_image
 
-    # Check the file size
-    file_size = len(encoded_image.tobytes())
-    target_size = 1024  # Target file size in bytes
-    while file_size > target_size and quality > 0:
-        quality -= 10
-        _, encoded_image = cv2.imencode('.jpg', image, [int(cv2.IMWRITE_JPEG_QUALITY), quality])
-        file_size = len(encoded_image.tobytes())
-    file_size = len(encoded_image.tobytes())
-    print(file_size)
-    return encoded_image
 
-
-def image_to_string256(image):
-    ret, buffer = cv2.imencode('.jpg', image)
-    image_as_bytes = buffer.tobytes()
-    image_as_base64 = base64.b64encode(image_as_bytes).decode()
-    return image_as_base64
+# def image_to_string256(image):
+#     ret, buffer = cv2.imencode('.jpg', image)
+#     image_as_bytes = buffer.tobytes()
+#     image_as_base64 = base64.b64encode(image_as_bytes).decode()
+#     return image_as_base64
 
 
 counter = 0
