@@ -53,4 +53,3 @@ def get_port():
     return comm_port
 
 
-
