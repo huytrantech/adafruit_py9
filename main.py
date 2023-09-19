@@ -1,5 +1,6 @@
 import sys
 
+import requests
 # //run command to fix ssl error
 # ln -s /etc/ssl/* /Library/Frameworks/Python.framework/Versions/3.9/etc/openssl
 from Adafruit_IO import MQTTClient
@@ -9,10 +10,11 @@ import constants
 import sensor_feeds
 import camera_detector
 import cv2
+import eval_testing
 
-AIO_FEED_IDs = ["light_button"]
+AIO_FEED_IDs = ["equation"]
 AIO_USERNAME = "HuyTran1996"
-AIO_KEY = "aio_jnhF51gQqzFSYRR7BqDN0bQwcPGs"
+AIO_KEY = "aio_QSMn25rS8ieQY8Rer7GCBORurre4"
 import base64
 import ssl
 
@@ -24,6 +26,17 @@ else:
     ssl._create_default_https_context = _create_unverified_https_context
 
 camera_detect_model = camera_detector.CameraDetector()
+
+
+def init_latest_equation():
+    aio_url = 'https://io.adafruit.com/api/v2/HuyTran1996/feeds/equation'
+    x = requests.get(url=aio_url, headers={'Authorization': AIO_KEY})
+    return x.json()['last_value']
+
+
+equation = init_latest_equation()
+
+equationManager = eval_testing.EvalEquation(equation)
 
 
 def connected(client):
@@ -43,6 +56,9 @@ def disconnected(client):
 
 def message(client, feed_id, payload):
     print("Nhan du lieu: " + payload + ", feed id:" + feed_id)
+    if feed_id == 'equation':
+        equationManager.set_equation(payload)
+        print('update equation')
 
 
 client = MQTTClient(AIO_USERNAME, AIO_KEY)
@@ -94,11 +110,13 @@ def image_to_string256(image):
 
 counter = 0
 while True:
-    image_origin , label, _ = camera_detect_model.detect()
-    label = label.split("\n")[0]
-    if label == 'none_facemask':
-        client.publish(sensor_feeds.CAMERA_DETECT, 1)
-    else:
-        client.publish(sensor_feeds.CAMERA_DETECT, 0)
-    time.sleep(2)
+    print('cong thuc equation: {}'.format(equationManager.equation))
+    x1 = random.randint(1, 10)
+    x2 = random.randint(1, 10)
+    x3 = random.randint(1, 10)
+    print({'x1': x1, 'x2': x2, 'x3': x3})
+    result = equationManager.cal_eval(x1, x2, x3)
+    print(result)
+    client.publish(sensor_feeds.EQUATION_FEED, result)
+    time.sleep(5)
     pass
