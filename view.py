@@ -8,7 +8,8 @@ def onClick():
 
 window = tk.Tk()
 window.title("Python app")
-window.geometry("600x400")
+# window.geometry("600x400")
+window.attributes('-fullscreen', True)
 
 labelA = tk.Label(text="Student name")
 labelA.place(x=5, y=5, width=80, height=30)

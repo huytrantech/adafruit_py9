@@ -7,7 +7,7 @@ from task2 import *
 from task3 import *
 
 import view
-import physical
+# import physical
 scheduler = Scheduler()
 scheduler.SCH_Init()
 
