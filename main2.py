@@ -24,5 +24,6 @@ scheduler.SCH_Add_Task(task3.Task3_Run, 3000,5000)
 while True:
     scheduler.SCH_Update()
     scheduler.SCH_Dispatch_Tasks()
+    view.insertTka()
     view.window.update()
     time.sleep(0.1)
