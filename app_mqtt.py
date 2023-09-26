@@ -6,7 +6,7 @@ import task_mqtt
 from Adafruit_IO import MQTTClient
 import view
 from scheduler import *
-import cv2
+# import cv2
 import base64
 import camera_detector
 
