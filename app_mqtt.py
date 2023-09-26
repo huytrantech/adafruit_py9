@@ -24,14 +24,14 @@ app = view.AppTkinter('IoT Application')
 
 AIO_FEED_IDs = ["temperature_sensor", "camera_detect"]
 AIO_USERNAME = "HuyTran1996"
-AIO_KEY = "aio_WwIl33pT8UUxhn18Ex4Cb8MLFETd"
+AIO_KEY = "aio_upRS49YMuCYG9WmQvkrEkfltDtJF"
 
 task_mqtt = task_mqtt.TaskMQTT(tkinter_app=app)
 
 scheduler.SCH_Add_Task(task_mqtt.TaskMQTT_Run, 1000, 2000)
 
 
-app_detect = camera_detector.CameraDetector()
+# app_detect = camera_detector.CameraDetector()
 
 
 def connected(client):
@@ -77,10 +77,10 @@ while True:
     scheduler.SCH_Update()
     scheduler.SCH_Dispatch_Tasks()
     app.run_app_update()
-    image_origin, label, score = app_detect.detect()
-    img_dt = image_to_string256(image_origin)
-    client.publish('image_cam',img_dt)
-    label = label.split("\n")[0]
-    client.publish('camera_detect',label)
-    print(label)
+    # image_origin, label, score = app_detect.detect()
+    # img_dt = image_to_string256(image_origin)
+    # client.publish('image_cam',img_dt)
+    # label = label.split("\n")[0]
+    # client.publish('camera_detect',label)
+    # print(label)
     time.sleep(3)
