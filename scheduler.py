@@ -41,7 +41,7 @@ class Scheduler:
 
     def SCH_Dispatch_Tasks(self):
         for i in range(0, len(self.SCH_tasks_G)):
-            if self.SCH_tasks_G[i].RunMe > 0:
+            if True:
                 self.SCH_tasks_G[i].RunMe -= 1
                 self.SCH_tasks_G[i].pTask()
 
