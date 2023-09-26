@@ -30,9 +30,9 @@ class AppTkinter(object):
             'time': [],
             'value': []
         }
-        self.fig = plt.Figure(figsize=(15, 10), dpi=100)
-        self.plot = self.fig.add_subplot(111)
-        self.canvas = FigureCanvasTkAgg(self.fig, master=self._root)
+        # self.fig = plt.Figure(figsize=(15, 10), dpi=100)
+        # self.plot = self.fig.add_subplot(111)
+        # self.canvas = FigureCanvasTkAgg(self.fig, master=self._root)
         self.init_app()
 
     def _init_menu(self):
@@ -51,7 +51,7 @@ class AppTkinter(object):
         self._root.configure(background=self.background_color)
         self.init_dashboard_statistics()
         self.init_dashboard_sensor()
-        self.init_chart()
+        # self.init_chart()
 
     def init_dashboard_statistics(self):
         font = ("Helvetica", 20)
