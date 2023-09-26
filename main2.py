@@ -11,11 +11,12 @@ import view
 scheduler = Scheduler()
 scheduler.SCH_Init()
 
-task2 = Task2()
-task3 = Task3()
 
 # taskPhysical = physical.PhysicalTask()
 
+app = view.AppTkinter('IoT Application')
+task2 = Task2(tkinter_app=app)
+task3 = Task3()
 
 scheduler.SCH_Add_Task(task2.Task2_Run, 1000,5000)
 scheduler.SCH_Add_Task(task3.Task3_Run, 3000,5000)
@@ -24,6 +25,5 @@ scheduler.SCH_Add_Task(task3.Task3_Run, 3000,5000)
 while True:
     scheduler.SCH_Update()
     scheduler.SCH_Dispatch_Tasks()
-    view.insertTka()
-    view.window.update()
+    app.run_app_update()
     time.sleep(0.1)

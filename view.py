@@ -140,6 +140,15 @@ class AppTkinter(object):
         if min_arg is not None:
             self._label_min.config(text=min_arg)
 
+        if max_arg is not None:
+            self._label_max.config(text=max_arg)
+
+        if avg_arg is not None:
+            self._label_avg.config(text=avg_arg)
+
+        if current_arg is not None:
+            self._label_current.config(text=current_arg)
+
 
 # window = tk.Tk()
 # window.title("Python app")
