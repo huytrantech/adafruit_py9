@@ -8,7 +8,7 @@ import view
 from scheduler import *
 # import cv2
 import base64
-import camera_detector
+# import camera_detector
 
 scheduler = Scheduler()
 scheduler.SCH_Init()
