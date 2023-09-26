@@ -2,8 +2,8 @@ import time
 import tkinter as tk
 from tkinter import ttk
 from tkinter_component import *
-import matplotlib.pyplot as plt
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+# import matplotlib.pyplot as plt
+# from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
 # def onClick():
