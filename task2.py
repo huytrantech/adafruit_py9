@@ -12,6 +12,8 @@ class Task2:
         v_max = random.randint(0, 100)
         v_avg = random.randint(0, 100)
         v_current = random.randint(0, 100)
-
-        self._tkinter_app.set_label_value(min_arg=v_min, max_arg=v_max, avg_arg=v_avg, current_arg=v_current)
+        try:
+            self._tkinter_app.set_label_value(min_arg=v_min, max_arg=v_max, avg_arg=v_avg, current_arg=v_current)
+        except:
+            print('app is not working')
         print("Task 2 is activated!!!!")

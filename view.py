@@ -1,3 +1,4 @@
+import time
 import tkinter as tk
 from tkinter import ttk
 from tkinter_component import *
@@ -30,6 +31,9 @@ class AppTkinter(object):
             'time': [],
             'value': []
         }
+        self.fig = plt.Figure(figsize=(15, 10), dpi=100)
+        self.plot = self.fig.add_subplot(111)
+        self.canvas = FigureCanvasTkAgg(self.fig, master=self._root)
         self.init_app()
 
     def _init_menu(self):
@@ -47,6 +51,8 @@ class AppTkinter(object):
         self._root.attributes('-fullscreen', True)
         self._root.configure(background=self.background_color)
         self.init_dashboard_statistics()
+        self.init_dashboard_sensor()
+        self.init_chart()
 
     def init_dashboard_statistics(self):
         font = ("Helvetica", 20)
@@ -66,8 +72,6 @@ class AppTkinter(object):
 
         line = tk.Frame(self._root, bg='gray', height=2)
         line.pack(fill='x', pady=0, padx=0)
-        self.init_dashboard_sensor()
-        self.init_chart()
 
     def init_dashboard_sensor(self):
         font = ("Helvetica", 20)
@@ -107,27 +111,34 @@ class AppTkinter(object):
         self._label_avg.configure(background='white')
         self._label_avg.place(x=710, y=80)
 
-    def set_data_chart(self,data_chart):
+    def set_data_chart(self, data_chart):
         self._data_chart = data_chart
 
     def init_chart(self):
-        df_base = pd.DataFrame(self._data_chart)
 
-        figure2 = plt.Figure(figsize=(5, 4), dpi=100)
-        ax2 = figure2.add_subplot(111)
-        line2 = FigureCanvasTkAgg(figure2, self._root)
-        line2.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
-        df2 = df_base[['time', 'value']].groupby('time').sum()
-        df2.plot(kind='line', legend=True, ax=ax2, color='r', marker='o', fontsize=10)
-        ax2.set_title('title')
+        if len(self._data_chart['time']) < 10:
+            x = self._data_chart['time']
+            y = self._data_chart['value']
+        else:
+            x = self._data_chart['time'][-10:]
+            y = self._data_chart['value'][-10:]
+        print(x)
 
-        # figure3 = plt.Figure(figsize=(5, 4), dpi=100)
-        # ax3 = figure3.add_subplot(111)
-        # line3 = FigureCanvasTkAgg(figure3, self.root)
-        # line3.get_tk_widget().pack(side=tk.LEFT, fill=tk.BOTH)
-        # df3 = df_base[['year', 'unemployment_rate_1']].groupby('year').sum()
-        # df3.plot(kind='line', legend=True, ax=ax3, color='r', marker='o', fontsize=10)
-        # ax2.set_title('Year Vs. Unemployment Rate 1')
+        # Vẽ biểu đồ
+        self.plot.clear()
+        self.plot.plot(x, y, label="Dữ liệu mẫu")
+        self.plot.set_xlabel("Time")
+        self.plot.set_ylabel("Value")
+        self.plot.set_title("Biểu đồ mẫu")
+        self.plot.legend()
+
+        # Tạo canvas để hiển thị biểu đồ trên giao diện Tkinter
+        # canvas = FigureCanvasTkAgg(self.fig, master=self._root)
+        canvas_widget = self.canvas.get_tk_widget()
+        canvas_widget.pack()
+        self.canvas.draw()
+        # self.canvas.draw()
+
         pass
 
     def run_app_mainloop(self):
@@ -149,6 +160,9 @@ class AppTkinter(object):
         if current_arg is not None:
             self._label_current.config(text=current_arg)
 
+    def add_new_value_chart(self, value):
+        self._data_chart['time'].append(value['time'])
+        self._data_chart['value'].append(value['value'])
 
 # window = tk.Tk()
 # window.title("Python app")
