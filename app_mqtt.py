@@ -24,7 +24,7 @@ app = view.AppTkinter('IoT Application')
 
 AIO_FEED_IDs = ["temperature_sensor", "camera_detect"]
 AIO_USERNAME = "HuyTran1996"
-AIO_KEY = "aio_upRS49YMuCYG9WmQvkrEkfltDtJF"
+AIO_KEY = "aio_CPQc69QDCKb7G4NM6VjV6tmk1ywU"
 
 task_mqtt = task_mqtt.TaskMQTT(tkinter_app=app)
 
